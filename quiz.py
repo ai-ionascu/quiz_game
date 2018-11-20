@@ -1,3 +1,5 @@
+import random
+
 def game_menu():
     
     print("1. Ask a question")
@@ -30,8 +32,11 @@ def ask_questions():
             questions.append(text)
         else:
             answers.append(text)
+            
+    questions_and_answers = list(zip(questions,answers))
+    random.shuffle(questions_and_answers)
     
-    for question, answer in zip(questions,answers):
+    for question, answer in questions_and_answers:
         guess = input(question+"> ")
         
         if guess == answer:
