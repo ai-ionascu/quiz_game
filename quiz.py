@@ -2,9 +2,12 @@ import random
 
 def game_menu():
     
+    print("")
     print("1. Ask a question")
     print("2. Add questions")
-    print("3. Exit game")
+    print("3. Remove questions")
+    print("4. Exit game")
+    print("")
     
     option = input("Choose option: ")
     return option
@@ -18,6 +21,49 @@ def add_questions():
     f.write(answer+'\n')
     f.close()
     
+def questions_only():
+    with open("questions.txt","r") as f:
+        lines = f.read().splitlines()
+        count=0
+        questions_list=[]
+        for i in lines:
+            count+=1
+            if count%2 != 0:
+                questions_list.append(i)
+        for i in questions_list:
+            i = "{0}. {1}".format(questions_list.index(i)+1,i)
+            print(i)
+        return questions_list
+
+def delete_operation(select):
+    f = open("questions.txt","r")
+    lines = f.read().splitlines()
+    f.close()
+    f = open("questions.txt","w")
+    for line in lines:
+        if line != lines[2*select-2] and line != lines[2*select-1]:
+            f.write(line+"\n")
+    f.close()
+       
+def delete_question():
+    
+    try:
+        print("")
+        questions_only()
+        selection = input("\nPlease type the question number to delete('r' for main menu):\n>") 
+        print("")
+        while True:
+            if int(selection) > len(questions_only()):
+                selection = input("\nPlease make a valid selection('r' for main menu):\n>")
+            else:
+                delete_operation(int(selection))
+                break
+    
+    except ValueError:
+            if selection != "r":
+                print("\nInvalid selection!")
+                delete_question()    
+                
 def ask_questions():
     
     questions=[]
@@ -63,6 +109,9 @@ def game_loop():
             add_questions()
             
         elif option == '3':
+            delete_question()
+            
+        elif option == '4':
             break
         
         else:
