@@ -1,4 +1,5 @@
 import random
+import difflib
 
 def game_menu():
     
@@ -95,12 +96,20 @@ def ask_questions():
         if guess == 'r':
             break
         if guess == answer:
-            print("You're right!")
+            print("\nYou're right!")
             score+=1
-            print("Your score: {0}".format(score))
-            
+            print("Your score: {0}\n".format(score))
         else:
-            print("Wrong answer!")
+            count = 0
+            for i in difflib.ndiff(guess, answer):
+                if i[0]!=' ':
+                    count+=1
+            if count<=2:    
+                print("\nWrong spelling, but you're right!")
+                score+=1
+                print("Your score: {0}\n".format(score))
+            else:    
+                print("\nWrong answer!\n")
         
     print("You answered correct for {0} questions out of {1}".format(score,len(questions)))    
     
