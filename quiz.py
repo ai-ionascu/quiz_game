@@ -14,12 +14,20 @@ def game_menu():
     
 def add_questions():
     
-    question = input('Please add a question:\n>')
-    answer = input("Ok, then provide an answer:\n>{0}\n>".format(question))
-    f = open('questions.txt', 'a')
-    f.write(question+'\n')
-    f.write(answer+'\n')
-    f.close()
+    while True:
+        question = input("Please add a question: (press 'r' for main menu)\n>")
+        if question == 'r':
+            break
+        else:    
+            answer = input("Ok, then provide an answer: (press 'r' for main menu)\n>{0}\n>".format(question))
+            if answer == 'r':
+                break
+            else:    
+                f = open('questions.txt', 'a')
+                f.write(question+'\n')
+                f.write(answer+'\n')
+                f.close()
+        break        
     
 def questions_only():
     with open("questions.txt","r") as f:
@@ -50,11 +58,11 @@ def delete_question():
     try:
         print("")
         questions_only()
-        selection = input("\nPlease type the question number to delete('r' for main menu):\n>") 
+        selection = input("\nPlease type the question number to delete: (press 'r' for main menu)\n>") 
         print("")
         while True:
             if int(selection) > len(questions_only()):
-                selection = input("\nPlease make a valid selection('r' for main menu):\n>")
+                selection = input("\nPlease make a valid selection: (press 'r' for main menu)\n>")
             else:
                 delete_operation(int(selection))
                 break
@@ -83,8 +91,9 @@ def ask_questions():
     random.shuffle(questions_and_answers)
     
     for question, answer in questions_and_answers:
-        guess = input(question+"> ")
-        
+        guess = input(question+" (press 'r' for main menu)\n> ")
+        if guess == 'r':
+            break
         if guess == answer:
             print("You're right!")
             score+=1

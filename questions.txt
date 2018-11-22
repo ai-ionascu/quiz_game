@@ -2,7 +2,12 @@ What is the capital of Romania?
 Bucharest
 What is the capital of France?
 Paris
-What is the capital of Italy?
-Rome
-
+What is the capital of Germany?
+Berlin
+What is the capital of UK?
+London
+What is the capital of Spain?
+Madrid
+What is the capital of Russia?
+Moscow
 
